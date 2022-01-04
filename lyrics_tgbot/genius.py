@@ -30,8 +30,13 @@ def dict_builder(data: dict) -> dict:
     Returns:
         dict: builded dict
     """
+    try:
+        pageviews = data['stats']['pageviews']
+    except KeyError:
+        pageviews = None
+
     return {'title': data['title'], 'artist': data['primary_artist']['name'],
-            'api_path': data['api_path'], 'image': data['header_image_thumbnail_url']}
+            'api_path': data['api_path'], 'pageviews': pageviews, 'image': data['header_image_thumbnail_url']}
 
 
 def search(q_str: str) -> dict:
@@ -55,6 +60,7 @@ def search(q_str: str) -> dict:
         if section['type'] == 'song':
             for song in section['hits']:
                 music = song['result']
+                # print(music)
                 if len(data['songs']) == 0:
                     data['songs'].append(dict_builder(music))
                 if data['songs'][-1]['api_path'] != music['api_path']:
