@@ -27,8 +27,15 @@ async def search(query: types.InlineQuery):
 async def get_text(message: types.Message):
     api_id = message.text[6:]
     lyrics = lyrics_aw(api_id)
-    await bot.send_message(chat_id=message.chat.id,
-                           text=lyrics)
+    print(lyrics)
+    if len(lyrics) > 4096:
+        print(lyrics)
+        for part in range(0, len(lyrics), 4096):
+            await bot.send_message(chat_id=message.chat.id,
+                                   text=lyrics[part:part+4096])
+    else:
+        await bot.send_message(chat_id=message.chat.id,
+                               text=lyrics)
 
 
 # long-polling

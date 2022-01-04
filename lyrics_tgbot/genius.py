@@ -88,9 +88,16 @@ def get_text(api_path: str) -> str:
     """
     html = get_html('https://genius.com{}'.format(api_path), None)
     soup = BeautifulSoup(html, 'html.parser')
-    container = soup.find(
+    all_text = ''
+    containers = soup.find_all(
         'div', {'class': 'Lyrics__Container-sc-1ynbvzw-6 lgZgEN'})
-    str_container = str(container).replace('<br/>', '\n')
-    container = BeautifulSoup(str_container, "html.parser")
-    lyrics = container.text
-    return lyrics
+    for container in containers:
+        str_container = str(container).replace('<br/>', '\n')
+        container = BeautifulSoup(str_container, "html.parser")
+        all_text = all_text + '\n' + container.text
+
+    return all_text
+
+
+if __name__ == '__main__':
+    print(get_text('/songs/7382565'))
