@@ -28,7 +28,7 @@ def build_query_aw(q_str: str) -> list:
             title = f'{name} ({artist})'
             if track['pageviews']:
                 views = track['pageviews']
-                description = f'📈 Просмотов: {views}'
+                description = f'Запросов: {views}'
             else:
                 description = None
 
