@@ -1,3 +1,3 @@
 # Telegram бот для поиска текста песни
-![demo](./files/demo.gif)
+![demo](./files/demo.gif | width=200)
 
