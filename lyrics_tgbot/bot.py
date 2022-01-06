@@ -1,4 +1,3 @@
-from contextlib import AsyncExitStack
 from aiogram import Bot, Dispatcher, executor, types
 from answers import *
 from config import TOKEN
@@ -19,7 +18,9 @@ async def start_command(message: types.Message):
 # inline search
 @dp.inline_handler(lambda query: query['query'] != '')
 async def search(query: types.InlineQuery):
-    await bot.answer_inline_query(query['id'], build_query_aw(query['query']), cache_time=1000)
+    await bot.answer_inline_query(query['id'],
+                                  build_query_aw(query['query']),
+                                  cache_time=1000)
 
 
 # track lyrics
